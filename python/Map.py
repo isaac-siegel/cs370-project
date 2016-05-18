@@ -2,7 +2,7 @@ from Point import Point
 
 
 class Map(object):
-    NEIGHBORING_INDEX_MODIFIERS = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+    NEIGHBORING_INDEX_MODIFIERS = [[-1, 0], [0, -1], [1, 0], [0, 1]]
 
     def __init__(self, map, width, height):
         # type: (Object[], int, int) -> self
@@ -27,6 +27,8 @@ class Map(object):
                 new_point = Point(new_x, new_y)
                 if Map.is_valid_point(new_point, self.width, self.height):
                     new_points.append(new_point)
+                else:
+                    new_points.append(None)
             return new_points
         else:
             raise IndexError
