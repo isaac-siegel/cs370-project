@@ -1,5 +1,4 @@
 from Point import Point
-from Neighbor import Neighbor
 
 
 class Map(object):
