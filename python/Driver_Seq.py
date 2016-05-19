@@ -1,4 +1,12 @@
+import random
+
 from TerrainMap import TerrainMap
+from Move import Move
+
+def generate_move():
+    moves = [Move.LEFT, Move.RIGHT, Move.FOWARD, Move.BACKWARDS]
+    choice = int(random.uniform(0,4))
+    return moves[choice]
 
 terrain_map = TerrainMap("test.map")
 
@@ -25,11 +33,3 @@ while len(possible_states) > 1:
         possible_state.move(move)
 
 print("FOUND_PROF")
-
-
-
-
-
-
-
-
