@@ -1,4 +1,5 @@
 from Point import Point
+from State import State
 
 
 class Map(object):
@@ -51,6 +52,9 @@ class Map(object):
                     to_string += str(self.map[i * self.width + j]) + ", "
             to_string += "]\n"
         return to_string
+
+        def is_valid_state(self, state):
+            return Map.is_valid_point(state.point, self.width, self.height)
 
     @staticmethod
     def point_to_index(point, width, height):
