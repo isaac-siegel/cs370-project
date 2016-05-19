@@ -6,6 +6,7 @@ from python.TerrainTile import TerrainTile
 from python.Direction import Direction
 
 NON_TRAVERSABLE_SCORE = -1
+INITIAL_SCORE = 1
 
 
 class ScoreMap(Map):
@@ -28,8 +29,8 @@ class ScoreMap(Map):
     def score_point(self, score_array, point, height, width):
         ndx = Map.point_to_index(point, width, height)
         neighbors = Map.get_neighbors(point)
-        #TODO
-        return ScoreTile(-1, [])
+        #TODO get directions and score from surrounding tiles
+        return ScoreTile(-1, []) # dummy data being returned temporary
 
 
     def __init__(self, terrain_map):
@@ -38,24 +39,23 @@ class ScoreMap(Map):
         score_array = ScoreMap.create_score_array(terrain_map, height, width)
 
         to_score = set()  # stores the next tiles to update score in a set
-        curr_score_val = 1
 
         # Set bottom row of scores to (1, [SOUTH]) or (NON_TRAVERSABLE_SCORE, [])
         for i in range(width):
             p = Point(i, height - 1)
             ndx = Map.point_to_index(p, width, height)
             if ScoreMap.needs_scoring(score_array, ndx):
-                score_array[ndx] = ScoreTile(curr_score_val, [Direction.Directions.SOUTH])
+                score_array[ndx] = ScoreTile(INITIAL_SCORE, [Direction.Directions.SOUTH])
                 neighbors = Map.get_neighbors(p)
                 for neighbor_point in neighbors:
-                    neighbor_ndx = Map.point_to_index(neighbor_point, width, height)
-                    if ScoreMap.needs_scoring(score_array, neighbor_ndx):
-                        to_score.add(neighbor_point)
+                    if neighbor_point is not None:
+                        neighbor_ndx = Map.point_to_index(neighbor_point, width, height)
+                        if ScoreMap.needs_scoring(score_array, neighbor_ndx):
+                            to_score.add(neighbor_point)
 
         #TODO check that this works
         # Start scoring all other tiles
         while len(to_score) > 0:
-            curr_score_val += 1
             currently_scoring = to_score
             to_score = set()
             for point in currently_scoring:
@@ -65,11 +65,12 @@ class ScoreMap(Map):
                     score_array[ndx] = score
                     neighbors = Map.get_neighbors(p)
                     for neighbor_point in neighbors:
-                        neighbor_ndx = Map.point_to_index(neighbor_point, width, height)
-                        if ScoreMap.needs_scoring(score_array, neighbor_ndx):
-                            to_score.add(neighbor_point)
+                        if neighbor_point is not None:
+                            neighbor_ndx = Map.point_to_index(neighbor_point, width, height)
+                            if ScoreMap.needs_scoring(score_array, neighbor_ndx):
+                                to_score.add(neighbor_point)
 
-        #TODO take input from terrain map and create ScoreTiles
+        #TODO check if there are any islands left of unscored tiles
 
         super(ScoreMap, self).__init__(score_array, width, height)
 
