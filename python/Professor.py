@@ -1,8 +1,8 @@
 from State import State
 
 class Professor:
-    def __init__(self, starting_state, terrain_map):
-        self.state = State(starting_state)
+    def __init__(self, , terrain_map):
+        self.state = terrain_map.get_prof_state()
         self.terrain_map = terrain_map
 
     def move(self, direction):
