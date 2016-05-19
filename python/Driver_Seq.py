@@ -1,10 +1,10 @@
 import random
 
 from TerrainMap import TerrainMap
-from Move import Move
+from Moves import Moves
 
 def generate_move():
-    moves = [Move.LEFT, Move.RIGHT, Move.FOWARD, Move.BACKWARDS]
+    moves = [Moves.LEFT, Moves.RIGHT, Moves.FOWARD, Moves.BACKWARDS]
     choice = int(random.uniform(0,4))
     return moves[choice]
 
