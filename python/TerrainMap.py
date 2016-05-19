@@ -20,6 +20,12 @@ class TerrainMap(Map):
     def __init__(self, file_name):
         # type: (String) -> self
         array = TerrainMap.read_file(file_name)
+        professor_x = array[0]
+        professor_y = array[1]
+        professor_direction = array[2]
+        print(professor_direction)
+        self.professor_state = State(Point(professor_x,professor_y), professor_direction)
+        array = array[3:] #Removes the first two lines which represent the prof state
         height = len(array)
         width = len(array[0])
         array = TerrainMap.flatten_array(array)

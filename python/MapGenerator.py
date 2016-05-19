@@ -1,6 +1,8 @@
 from random import randint
 from TerrainTile import TerrainTile
 from Point import Point
+from Direction import Direction
+from State import State
 import os
 import sys
 
@@ -16,15 +18,16 @@ def get_tile_list():  # TODO make reference TerrainTile list
     return [i.value for i in TerrainTile.TerrainTypes]
 
 
-def write_array_to_file(array, width, height, professor_point, file_name):
+def write_array_to_file(array, width, height, professor_state, file_name):
     # type: (int[], int, int, string) ->
     try:
         os.remove(file_name)
     except OSError:
         pass
     target = open(file_name + ".map", 'w+')
-    target.write(str(professor_point.x) + "\n")
-    target.write(str(professor_point.y) + "\n")
+    target.write(str(professor_state.point.x) + "\n")
+    target.write(str(professor_state.point.y) + "\n")
+    target.write(str() + str(professor_state.direction.direction.value) + "\n")
     for y in range(height):
         line = ""
         for x in range(width):
@@ -40,13 +43,14 @@ def random_map(width, height):
     return map
 
 
-def get_random_professor_point(map, width, height):
+def get_random_professor_state(map, width, height):
     x = randint(0,width - 1)
     y = randint(0,height - 1)
     while not TerrainTile(TerrainTile.TerrainTypes(map[y * height + x])).is_traversable():
         x = randint(0, width - 1)
         y = randint(0, height - 1)
-    return Point(x,y)
+    random_direction = Direction.Directions(randint(1, len(Direction.Directions)))
+    return State(Point(x,y),Direction(random_direction))
 
 if __name__ == "__main__":
     # Generates new map file
@@ -67,5 +71,5 @@ if __name__ == "__main__":
         else:
             file_name = "test"
     map = random_map(width, height)
-    professor_point = get_random_professor_point(map, width, height)
-    write_array_to_file(map, width, height, professor_point,file_name)
+    professor_state = get_random_professor_state(map, width, height)
+    write_array_to_file(map, width, height, professor_state,file_name)
