@@ -1,3 +1,5 @@
+MAX_SIZE = 100000
+
 class Point(object):
     def __init__(self, x, y):
         # type: (int, int) -> self
@@ -11,3 +13,6 @@ class Point(object):
     def __str__(self):
         # type: () -> String
         return "(" + str(self.x) + ", " + str(self.y) + ")"
+
+    def __hash__(self):
+        return self.x * MAX_SIZE * 10 + self.y

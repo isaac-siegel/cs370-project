@@ -12,14 +12,16 @@ class State(object):
         # type: () -> String
         return "(" + str(self.point) + ", " + str(self.direction) + ")"
 
-# from python import Direction as Direction
-# from python import Point as Point
-# d1 = Direction.Direction(Direction.Direction.Directions.NORTH)
-# p1 = Point.Point(1,2)
-# d2 = Direction.Direction(Direction.Direction.Directions.NORTH)
-# p2 = Point.Point(1,2)
-# d3 = Direction.Direction(Direction.Direction.Directions.SOUTH)
-# p3 = Point.Point(3,2)
+#TODO ADD MOVE FUNCTION THAT MOVES ACCORDING TO A DIRECTON
+
+# from python.Direction import Direction
+# from python.Point import Point
+# d1 = Direction(Direction.Directions.NORTH)
+# p1 = Point(1,2)
+# d2 = Direction(Direction.Directions.NORTH)
+# p2 = Point(1,2)
+# d3 = Direction(Direction.Directions.SOUTH)
+# p3 = Point(3,2)
 # s1 = State(p1, d1)
 # s2 = State(p2, d2)
 # s3 = State(p3, d3)
