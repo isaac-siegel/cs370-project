@@ -17,10 +17,6 @@ class TerrainMap(Map):
         # type: (String[]) -> Character[]
         return [char for line in array for char in line]
 
-    def get_surroundings(self, point):
-        # type: (Point) -> Surroundings
-        return Surroundings(*self.get_neighbors(point))
-
     def __init__(self, file_name):
         # type: (String) -> self
         array = TerrainMap.read_file(file_name)

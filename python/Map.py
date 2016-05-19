@@ -29,7 +29,14 @@ class Map(object):
                     new_points.append(new_point)
                 else:
                     new_points.append(None)
-            return new_points
+
+            neighbors = {}
+            neighbors.WEST = new_points[0]
+            neighbors.NORTH = new_points[1]
+            neighbors.EAST = new_points[2]
+            neighbors.SOUTH = new_points[3]
+            #WNES
+            return neighbors
         else:
             raise IndexError
 
