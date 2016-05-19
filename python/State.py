@@ -16,7 +16,6 @@ class State(object):
         return "(" + str(self.point) + ", " + str(self.direction) + ")"
 
     def move(self, movement):
-        # UNTESTED
         facing_north_go_forward =  self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.FORWARD
         facing_north_go_backward = self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.BACKWARD
         facing_north_go_left =     self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.LEFT
@@ -34,24 +33,27 @@ class State(object):
         facing_west_go_left =      self.direction == Direction(Direction.Directions.WEST ) and movement == Moves.LEFT
         facing_west_go_right =     self.direction == Direction(Direction.Directions.WEST ) and movement == Moves.RIGHT
 
-        # TODO: change direction after move
         if facing_north_go_forward or facing_south_go_backward or facing_west_go_right or facing_east_go_left:
             # Go NORTH
             self.point.x += 0
             self.point.y += -1
-            pass
+            self.direction = Direction(Direction.Directions.NORTH)
         elif facing_north_go_backward or facing_south_go_forward or facing_west_go_left or facing_east_go_right:
             # Go SOUTH
             self.point.x += 0
             self.point.y += 1
+            self.direction = Direction(Direction.Directions.SOUTH)
+
         elif facing_north_go_right or facing_south_go_left or facing_west_go_backward or facing_east_go_forward:
             # Go EAST
             self.point.x += 1
             self.point.y += 0
+            self.direction = Direction(Direction.Directions.EAST)
         elif facing_north_go_left or facing_south_go_right or facing_west_go_forward or facing_east_go_backward:
             # Go WEST
             self.point.x += -1
             self.point.y += 0
+            self.direction = Direction(Direction.Directions.WEST)
 
 # from python.Direction import Direction
 # from python.Point import Point
@@ -68,16 +70,27 @@ class State(object):
 # print(s1)
 # print(s2)
 # print(s3)
+# #
 #
 # print("===TEST MOVE===")
+#
+# print("Move Backward")
 # print(s1)
 # s1.move(Moves.BACKWARD)
 # print(s1)
 #
 # print()
 #
+# print("Move Left")
 # print(s2)
 # s2.move(Moves.LEFT)
+# print(s2)
+#
+# print()
+#
+# print("Move Right")
+# print(s2)
+# s2.move(Moves.RIGHT)
 # print(s2)
 
 #
