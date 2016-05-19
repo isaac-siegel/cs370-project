@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # 3 arguements given: generates argv[3].map with argv[1] x argv[2] array
 
     if len(sys.argv) < 3:
-        print "Usage: python MapGenerator.py [width height [name]]"
+        print("Usage: python MapGenerator.py [width height [name]]")
         width = 100
         height = 100
         file_name = "test"

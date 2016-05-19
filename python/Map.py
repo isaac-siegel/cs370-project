@@ -13,7 +13,7 @@ class Map(object):
     def get_tile(self, point):
         # type: (Point) -> Object
         if self.map is None:
-            raise TypeError, "map is null"
+            raise TypeError("map is null")
         return self.map[Map.point_to_index(point, self.height, self.width)]
 
     def get_neighbors(self, point):
