@@ -1,6 +1,9 @@
 from random import randint
+from TerrainTile import TerrainTile
+from Point import Point
 import os
 import sys
+
 
 
 def random_from_list(list):
@@ -10,16 +13,18 @@ def random_from_list(list):
 
 def get_tile_list():  # TODO make reference TerrainTile list
     # type: () -> Terrain[]
-    return [i for i in range(1, 5)]
+    return [i.value for i in TerrainTile.TerrainTypes]
 
 
-def write_array_to_file(array, width, height, file_name):
+def write_array_to_file(array, width, height, professor_point, file_name):
     # type: (int[], int, int, string) ->
     try:
         os.remove(file_name)
     except OSError:
         pass
     target = open(file_name + ".map", 'w+')
+    target.write(str(professor_point.x) + "\n")
+    target.write(str(professor_point.y) + "\n")
     for y in range(height):
         line = ""
         for x in range(width):
@@ -31,8 +36,17 @@ def write_array_to_file(array, width, height, file_name):
 def random_map(width, height):
     # type: (int, int) -> int[][]
     tile_list = get_tile_list()
-    return [tile_list[randint(0, len(tile_list) - 1)] for i in range(width * height)]
+    map = [tile_list[randint(0, len(tile_list) - 1)] for i in range(width * height)]
+    return map
 
+
+def get_random_professor_point(map, width, height):
+    x = randint(0,width - 1)
+    y = randint(0,height - 1)
+    while not TerrainTile(TerrainTile.TerrainTypes(map[y * height + x])).is_traversable():
+        x = randint(0, width - 1)
+        y = randint(0, height - 1)
+    return Point(x,y)
 
 if __name__ == "__main__":
     # Generates new map file
@@ -53,4 +67,5 @@ if __name__ == "__main__":
         else:
             file_name = "test"
     map = random_map(width, height)
-    write_array_to_file(map, width, height, file_name)
+    professor_point = get_random_professor_point(map, width, height)
+    write_array_to_file(map, width, height, professor_point,file_name)
