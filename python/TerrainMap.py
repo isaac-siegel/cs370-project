@@ -1,6 +1,9 @@
 from Map import Map
 from Surroundings import Surroundings
 from TerrainTile import TerrainTile
+from Point import Point
+from Direction import Direction
+from State import State
 
 
 class TerrainMap(Map):
@@ -26,3 +29,16 @@ class TerrainMap(Map):
         array = TerrainMap.flatten_array(array)
         terrain_array = [TerrainTile(type) for type in array]
         super(TerrainMap, self).__init__(terrain_array, width, height)
+
+    def get_all_traversable_states(self):
+        states = []
+        for x in range(self.width):
+            for y in range(self.height):
+                pnt = Point(x, y)
+                ndx = Map.point_to_index(pnt, self.width, self.height)
+                terrain = self.map[ndx]
+                if terrain.isTraversable():
+                    for dir in Direction.Directions:
+                        state = State(pnt, dir)
+                        states.append(state)
+        return states
