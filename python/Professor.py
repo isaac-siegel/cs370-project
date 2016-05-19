@@ -7,9 +7,8 @@ class Professor:
         self.state = terrain_map.get_prof_starting_state()
         self.terrain_map = terrain_map
 
-    def move(self, direction):
-        # self.state.move(direction)
-        raise NotImplemented
+    def move(self, movement):
+        self.state.move(movement)
 
     def convert_neighbors_to_surroundings(self, neighbors, direction):
         surroundings = None
