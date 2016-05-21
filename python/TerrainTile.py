@@ -16,12 +16,12 @@ class TerrainTile(Tile):
         return self.terrain_type == TerrainTile.TerrainTypes.OPEN or self.terrain_type == TerrainTile.TerrainTypes.ROADWAY
 
     def __eq__(self, other):
+        if other is None:
+            return False
         return self.terrain_type == other.terrain_type
 
     def __str__(self):
-        res = "-----TerrainTile----\n"
-        res += "Terrain Type: "  + str(self.terrain_type) + "\n"
-        return res
+        return "("+str(self.terrain_type)+")"
 
 
 

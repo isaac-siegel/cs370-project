@@ -60,8 +60,8 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 3:
         print("Usage: python MapGenerator.py [width height [name]]")
-        width = 100
-        height = 100
+        width = 20
+        height = 20
         file_name = "test"
     else:
         height = int(sys.argv[1])

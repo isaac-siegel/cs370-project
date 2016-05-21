@@ -8,6 +8,8 @@ class Point(object):
 
     def __eq__(self, other):
         # type: (Point) -> Boolean
+        if other is None:
+            return False
         return self.x == other.x and self.y == other.y
 
     def __str__(self):

@@ -12,16 +12,21 @@ class Professor:
 
     def convert_neighbors_to_surroundings(self, neighbors, direction):
         surroundings = None
-        if direction == Directions.NORTH:
-            surroundings = Surroundings(neighbors['NORTH'], neighbors['WEST'], neighbors['SOUTH'], neighbors['EAST'])
-        elif direction == Directions.SOUTH:
-            surroundings = Surroundings(neighbors['SOUTH'], neighbors['EAST'], neighbors['NORTH'], neighbors['WEST'])
-        elif direction == Directions.EAST:
-            surroundings = Surroundings(neighbors['EAST'], neighbors['NORTH'], neighbors['WEST'], neighbors['SOUTH'])
-        elif direction == Directions.WEST:
-            surroundings = Surroundings(neighbors['WEST'], neighbors['SOUTH'], neighbors['EAST'], neighbors['NORTH'])
 
-        print(surroundings)
+        north = self.terrain_map.get_tile(neighbors['NORTH'])
+        south = self.terrain_map.get_tile(neighbors['SOUTH'])
+        east = self.terrain_map.get_tile(neighbors['EAST'])
+        west = self.terrain_map.get_tile(neighbors['WEST'])
+
+        if direction == Directions.NORTH:
+            surroundings = Surroundings(north, west, south, east)
+        elif direction == Directions.SOUTH:
+            surroundings = Surroundings(south, east, north, west)
+        elif direction == Directions.EAST:
+            surroundings = Surroundings(east, north, west,south)
+        elif direction == Directions.WEST:
+            surroundings = Surroundings(west,south, east, north)
+
         return surroundings
 
     def get_surroundings(self):
