@@ -30,7 +30,9 @@ print("Starting Amount of possible_states: ",len(possible_states))
 while len(possible_states) > 1:
     current_surroundings = prof.get_surroundings()
     for possible_state in possible_states:
-        if possible_state != current_surroundings:
+        neighbors = terrain_map.get_neighbors(possible_state.point)
+        possible_state_surroundings = prof.convert_neighbors_to_surroundings(neighbors, possible_state.direction)
+        if possible_state_surroundings != current_surroundings:
             possible_states.remove(possible_state)
 
     # Now possible states have been trimmed down
