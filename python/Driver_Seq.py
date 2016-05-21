@@ -17,12 +17,15 @@ def generate_random_valid_move(terrain_map, prof):
 
 
 terrain_map = TerrainMap("test.map")
+# print(terrain_map)
 
 # # score_map = ScoreMap(terrain_map)
 
 prof = Professor(terrain_map)
+print(prof)
 
 possible_states = terrain_map.get_all_traversable_states()
+print("Starting Amount of possible_states: ",len(possible_states))
 
 while len(possible_states) > 1:
     current_surroundings = prof.get_surroundings()
@@ -41,5 +44,6 @@ while len(possible_states) > 1:
 
     for possible_state in possible_states:
         possible_state.move(move)
+print(prof)
 
 print("FOUND_PROF")
