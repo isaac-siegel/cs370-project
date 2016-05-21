@@ -1,5 +1,7 @@
 from Direction import Direction
 from Moves import Moves
+from Point import Point
+
 
 class State(object):
     def __init__(self, point, direction):
@@ -16,22 +18,24 @@ class State(object):
         return "(" + str(self.point) + ", " + str(self.direction) + ")"
 
     def move(self, movement):
-        facing_north_go_forward =  self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.FORWARD
-        facing_north_go_backward = self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.BACKWARD
-        facing_north_go_left =     self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.LEFT
-        facing_north_go_right =    self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.RIGHT
-        facing_south_go_forward =  self.direction == Direction(Direction.Directions.SOUTH) and movement == Moves.FORWARD
-        facing_south_go_backward = self.direction == Direction(Direction.Directions.SOUTH) and movement == Moves.BACKWARD
-        facing_south_go_left =     self.direction == Direction(Direction.Directions.SOUTH) and movement == Moves.LEFT
-        facing_south_go_right =    self.direction == Direction(Direction.Directions.SOUTH) and movement == Moves.RIGHT
-        facing_east_go_forward =   self.direction == Direction(Direction.Directions.EAST ) and movement == Moves.FORWARD
-        facing_east_go_backward =  self.direction == Direction(Direction.Directions.EAST ) and movement == Moves.BACKWARD
-        facing_east_go_left =      self.direction == Direction(Direction.Directions.EAST ) and movement == Moves.LEFT
-        facing_east_go_right =     self.direction == Direction(Direction.Directions.EAST ) and movement == Moves.RIGHT
-        facing_west_go_forward =   self.direction == Direction(Direction.Directions.WEST ) and movement == Moves.FORWARD
-        facing_west_go_backward =  self.direction == Direction(Direction.Directions.WEST ) and movement == Moves.BACKWARD
-        facing_west_go_left =      self.direction == Direction(Direction.Directions.WEST ) and movement == Moves.LEFT
-        facing_west_go_right =     self.direction == Direction(Direction.Directions.WEST ) and movement == Moves.RIGHT
+        facing_north_go_forward = self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.FORWARD
+        facing_north_go_backward = self.direction == Direction(
+            Direction.Directions.NORTH) and movement == Moves.BACKWARD
+        facing_north_go_left = self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.LEFT
+        facing_north_go_right = self.direction == Direction(Direction.Directions.NORTH) and movement == Moves.RIGHT
+        facing_south_go_forward = self.direction == Direction(Direction.Directions.SOUTH) and movement == Moves.FORWARD
+        facing_south_go_backward = self.direction == Direction(
+            Direction.Directions.SOUTH) and movement == Moves.BACKWARD
+        facing_south_go_left = self.direction == Direction(Direction.Directions.SOUTH) and movement == Moves.LEFT
+        facing_south_go_right = self.direction == Direction(Direction.Directions.SOUTH) and movement == Moves.RIGHT
+        facing_east_go_forward = self.direction == Direction(Direction.Directions.EAST) and movement == Moves.FORWARD
+        facing_east_go_backward = self.direction == Direction(Direction.Directions.EAST) and movement == Moves.BACKWARD
+        facing_east_go_left = self.direction == Direction(Direction.Directions.EAST) and movement == Moves.LEFT
+        facing_east_go_right = self.direction == Direction(Direction.Directions.EAST) and movement == Moves.RIGHT
+        facing_west_go_forward = self.direction == Direction(Direction.Directions.WEST) and movement == Moves.FORWARD
+        facing_west_go_backward = self.direction == Direction(Direction.Directions.WEST) and movement == Moves.BACKWARD
+        facing_west_go_left = self.direction == Direction(Direction.Directions.WEST) and movement == Moves.LEFT
+        facing_west_go_right = self.direction == Direction(Direction.Directions.WEST) and movement == Moves.RIGHT
 
         if facing_north_go_forward or facing_south_go_backward or facing_west_go_right or facing_east_go_left:
             # Go NORTH
@@ -54,6 +58,11 @@ class State(object):
             self.point.x += -1
             self.point.y += 0
             self.direction = Direction(Direction.Directions.WEST)
+    @staticmethod
+    def copy(state):
+        point = Point(state.point.x, state.point.y)
+        direction = Direction(state.direction.direction)
+        return State(point, direction)
 
 # from python.Direction import Direction
 # from python.Point import Point
