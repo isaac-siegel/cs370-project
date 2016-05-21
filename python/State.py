@@ -61,7 +61,7 @@ class State(object):
     @staticmethod
     def copy(state):
         point = Point(state.point.x, state.point.y)
-        direction = Direction(state.direction.direction)
+        direction = Direction(Direction.Directions(state.direction.direction))
         return State(point, direction)
 
 # from python.Direction import Direction
