@@ -30,7 +30,8 @@ prof = Professor(terrain_map)
 print("====STARTING PLACE====")
 print(prof)
 
-possible_states = terrain_map.get_all_traversable_states()
+# possible_states = terrain_map.get_all_traversable_states()
+possible_states = prof.get_all_possible_states()
 
 print("Starting Amount of possible_states: ",len(possible_states))
 
@@ -38,19 +39,9 @@ print("Starting Amount of possible_states: ",len(possible_states))
 while len(possible_states) > 1:
     current_surroundings = prof.get_surroundings()
     next_possible_states = []
-    # print("current surroundings",current_surroundings)
-    # print()
     for possible_state in possible_states:
-        test_state = State(Point(0,0), Directions.EAST)
-
-        neighbors = terrain_map.get_neighbors(possible_state.point)
-        possible_state_surroundings = prof.convert_neighbors_to_surroundings(neighbors, possible_state.direction)
-
-        if possible_state_surroundings == current_surroundings:
-            # print("found matching state: ")
-            # print(possible_state)
+        if prof.is_possible_state(possible_state,current_surroundings):
             next_possible_states.append(possible_state)
-
     possible_states = next_possible_states
 
     print("Num possible states: ",len(possible_states))

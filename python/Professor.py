@@ -1,6 +1,9 @@
 from State import State
 from Directions import Directions
 from Surroundings import Surroundings
+from Point import Point
+from Map import Map
+
 
 class Professor:
     def __init__(self, terrain_map):
@@ -23,9 +26,9 @@ class Professor:
         elif direction == Directions.SOUTH:
             surroundings = Surroundings(south, east, north, west)
         elif direction == Directions.EAST:
-            surroundings = Surroundings(east, north, west,south)
+            surroundings = Surroundings(east, north, west, south)
         elif direction == Directions.WEST:
-            surroundings = Surroundings(west,south, east, north)
+            surroundings = Surroundings(west, south, east, north)
 
         return surroundings
 
@@ -36,13 +39,26 @@ class Professor:
 
         return self.convert_neighbors_to_surroundings(neighbors, prof_direction)
 
-
     def __str__(self):
         res = "----Professor----\n"
         res += "State: " + str(self.state)
         return res
 
+    def is_possible_state(self, state, professor_surroundings):
+        neighbors = self.terrain_map.get_neighbors(state.point)
+        possible_state_surroundings = self.convert_neighbors_to_surroundings(neighbors, state.direction)
+        return possible_state_surroundings == professor_surroundings
 
-
-
-
+    def get_all_possible_states(self):
+        states = []
+        professor_surroundings = self.get_surroundings()
+        for x in range(self.terrain_map.width):
+            for y in range(self.terrain_map.height):
+                point = Point(x, y)
+                terrain = self.terrain_map.get_tile(point)
+                if terrain.is_traversable():
+                    for dir in Directions:
+                        state = State(point, dir)
+                        if self.is_possible_state(state,professor_surroundings):
+                            states.append(state)
+        return states

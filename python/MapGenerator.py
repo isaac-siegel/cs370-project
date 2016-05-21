@@ -6,7 +6,7 @@ from State import State
 import os
 import sys
 
-SIZE = 10000
+SIZE = 1000
 WIDTH = SIZE
 HEIGHT = SIZE
 
