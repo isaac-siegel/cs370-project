@@ -1,7 +1,7 @@
 from random import randint
 from TerrainTile import TerrainTile
 from Point import Point
-from Direction import Direction
+from Directions import Directions
 from State import State
 import os
 import sys
@@ -27,7 +27,7 @@ def write_array_to_file(array, width, height, professor_state, file_name):
     target = open(file_name + ".map", 'w+')
     target.write(str(professor_state.point.x) + "\n")
     target.write(str(professor_state.point.y) + "\n")
-    target.write(str() + str(professor_state.direction.direction.value) + "\n")
+    target.write(str() + str(professor_state.direction.value) + "\n")
     for y in range(height):
         line = ""
         for x in range(width):
@@ -49,8 +49,8 @@ def get_random_professor_state(map, width, height):
     while not TerrainTile(TerrainTile.TerrainTypes(map[y * height + x])).is_traversable():
         x = randint(0, width - 1)
         y = randint(0, height - 1)
-    random_direction = Direction.Directions(randint(1, len(Direction.Directions)))
-    return State(Point(x,y),Direction(random_direction))
+    random_direction = Directions(randint(1, len(Directions)))
+    return State(Point(x,y), random_direction)
 
 if __name__ == "__main__":
     # Generates new map file

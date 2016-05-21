@@ -12,3 +12,4 @@ class Directions(Enum):
 # Getter
 # Comparator (equals)
 # ToString()
+

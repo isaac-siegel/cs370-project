@@ -2,7 +2,7 @@ from Map import Map
 from Surroundings import Surroundings
 from TerrainTile import TerrainTile
 from Point import Point
-from Direction import Direction
+from Directions import Directions
 from State import State
 
 
@@ -22,9 +22,9 @@ class TerrainMap(Map):
         array = TerrainMap.read_file(file_name)
         professor_x = int(array[0])
         professor_y = int(array[1])
-        professor_direction = array[2]
+        professor_direction = Directions(int(array[2]))
         print(professor_direction)
-        self.professor_start_state = State(Point(professor_x,professor_y), Direction(Direction.Directions(int(professor_direction))))
+        self.professor_start_state = State(Point(professor_x,professor_y), professor_direction)
         array = array[3:] #Removes the first two lines which represent the prof state
         height = len(array)
         width = len(array[0])
@@ -40,7 +40,7 @@ class TerrainMap(Map):
                 ndx = Map.point_to_index(pnt, self.width, self.height)
                 terrain = self.map[ndx]
                 if terrain.is_traversable():
-                    for dir in Direction.Directions:
+                    for dir in Directions:
                         state = State(pnt, dir)
                         states.append(state)
         return states

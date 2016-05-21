@@ -3,7 +3,7 @@ from python.Point import Point
 from python.TerrainMap import TerrainMap
 from python.ScoreTile import ScoreTile
 from python.TerrainTile import TerrainTile
-from python.Direction import Direction
+from python.Directions import Directions
 
 NON_TRAVERSABLE_SCORE = -1
 INITIAL_SCORE = 1
@@ -45,7 +45,7 @@ class ScoreMap(Map):
             p = Point(i, height - 1)
             ndx = Map.point_to_index(p, width, height)
             if ScoreMap.needs_scoring(score_array, ndx):
-                score_array[ndx] = ScoreTile(INITIAL_SCORE, [Direction.Directions.SOUTH])
+                score_array[ndx] = ScoreTile(INITIAL_SCORE, [Directions.SOUTH])
                 neighbors = Map.get_neighbors(p)
                 for neighbor_point in neighbors:
                     if neighbor_point is not None:
