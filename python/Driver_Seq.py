@@ -37,13 +37,12 @@ while len(possible_states) > 1:
     if len(possible_states) <= 1:
         break
 
-
-
     move = generate_random_valid_move(terrain_map, prof)
     prof.move(move)
 
     for possible_state in possible_states:
         possible_state.move(move)
+
 print(prof)
 
 print("FOUND_PROF")
