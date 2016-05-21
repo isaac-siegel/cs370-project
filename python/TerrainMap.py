@@ -20,8 +20,8 @@ class TerrainMap(Map):
     def __init__(self, file_name):
         # type: (String) -> self
         array = TerrainMap.read_file(file_name)
-        professor_x = array[0]
-        professor_y = array[1]
+        professor_x = int(array[0])
+        professor_y = int(array[1])
         professor_direction = array[2]
         print(professor_direction)
         self.professor_start_state = State(Point(professor_x,professor_y), Direction(Direction.Directions(int(professor_direction))))
@@ -29,7 +29,7 @@ class TerrainMap(Map):
         height = len(array)
         width = len(array[0])
         array = TerrainMap.flatten_array(array)
-        terrain_array = [TerrainTile(type) for type in array]
+        terrain_array = [TerrainTile(TerrainTile.TerrainTypes(int(type))) for type in array]
         super(TerrainMap, self).__init__(terrain_array, width, height)
 
     def get_all_traversable_states(self):
@@ -40,6 +40,7 @@ class TerrainMap(Map):
                 ndx = Map.point_to_index(pnt, self.width, self.height)
                 terrain = self.map[ndx]
                 if terrain.is_traversable():
+                    print(str(x) + " " + str(y))
                     for dir in Direction.Directions:
                         state = State(pnt, dir)
                         states.append(state)

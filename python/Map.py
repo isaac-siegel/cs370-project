@@ -32,10 +32,10 @@ class Map(object):
                     new_points.append(None)
 
             neighbors = {}
-            neighbors.WEST = new_points[0]
-            neighbors.NORTH = new_points[1]
-            neighbors.EAST = new_points[2]
-            neighbors.SOUTH = new_points[3]
+            neighbors["WEST"] = new_points[0]
+            neighbors["NORTH"] = new_points[1]
+            neighbors["EAST"] = new_points[2]
+            neighbors["SOUTH"] = new_points[3]
             #WNES
             return neighbors
         else:
