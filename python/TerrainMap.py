@@ -39,7 +39,7 @@ class TerrainMap(Map):
                 pnt = Point(x, y)
                 ndx = Map.point_to_index(pnt, self.width, self.height)
                 terrain = self.map[ndx]
-                if terrain.isTraversable():
+                if terrain.is_traversable():
                     for dir in Direction.Directions:
                         state = State(pnt, dir)
                         states.append(state)

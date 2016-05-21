@@ -2,11 +2,19 @@ import random
 
 from TerrainMap import TerrainMap
 from Moves import Moves
+from Professor import Professor
 
 def generate_move():
     moves = [Moves.LEFT, Moves.RIGHT, Moves.FOWARD, Moves.BACKWARDS]
     choice = int(random.uniform(0,4))
     return moves[choice]
+
+def generate_random_valid_move(terrain_map, prof):
+    move = generate_move()
+    while not terrain_map.is_valid_move(prof.state, move):
+        move = generate_move()
+    return move
+
 
 terrain_map = TerrainMap("test.map")
 
@@ -26,7 +34,9 @@ while len(possible_states) > 1:
     if len(possible_states) <= 1:
         break
 
-    move = generate_move()
+
+
+    move = generate_random_valid_move(terrain_map, prof)
     prof.move(move)
 
     for possible_state in possible_states:
