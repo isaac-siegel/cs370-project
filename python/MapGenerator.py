@@ -6,7 +6,9 @@ from State import State
 import os
 import sys
 
-
+SIZE = 10000
+WIDTH = SIZE
+HEIGHT = SIZE
 
 def random_from_list(list):
     # type: (list) -> object
@@ -60,16 +62,14 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 3:
         print("Usage: python MapGenerator.py [width height [name]]")
-        width = 20
-        height = 20
         file_name = "test"
     else:
-        height = int(sys.argv[1])
-        width = int(sys.argv[2])
+        HEIGHT = int(sys.argv[1])
+        WIDTH = int(sys.argv[2])
         if len(sys.argv) > 3:
             file_name = sys.argv[3]
         else:
             file_name = "test"
-    map = random_map(width, height)
-    professor_state = get_random_professor_state(map, width, height)
-    write_array_to_file(map, width, height, professor_state,file_name)
+    map = random_map(WIDTH, HEIGHT)
+    professor_state = get_random_professor_state(map, WIDTH, HEIGHT)
+    write_array_to_file(map, WIDTH, HEIGHT, professor_state,file_name)

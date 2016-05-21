@@ -23,7 +23,6 @@ class TerrainMap(Map):
         professor_x = int(array[0])
         professor_y = int(array[1])
         professor_direction = Directions(int(array[2]))
-        print(professor_direction)
         self.professor_start_state = State(Point(professor_x,professor_y), professor_direction)
         array = array[3:] #Removes the first two lines which represent the prof state
         height = len(array)
