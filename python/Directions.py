@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Direction(Enum):
+class Directions(Enum):
     NORTH = 1
     EAST = 2
     SOUTH = 3
