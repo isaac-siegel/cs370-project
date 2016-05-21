@@ -53,8 +53,14 @@ class Map(object):
             to_string += "]\n"
         return to_string
 
-        def is_valid_state(self, state):
-            return Map.is_valid_point(state.point, self.width, self.height)
+    def is_valid_state(self, state):
+        return Map.is_valid_point(state.point, self.width, self.height)
+
+    def is_valid_move(self, state, movement):
+        move_state = State.copy(state)
+        move_state.move(movement)
+        return Map.is_valid_state(move_state)
+
 
     @staticmethod
     def point_to_index(point, width, height):
