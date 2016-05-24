@@ -3,12 +3,15 @@ from TerrainTile import TerrainTile
 from Point import Point
 from Directions import Directions
 from State import State
+from TerrainMap import TerrainMap
+from ScoreMap import ScoreMap
 import os
 import sys
 
-SIZE = 1000
+SIZE = 100
 WIDTH = SIZE
 HEIGHT = SIZE
+
 
 def random_from_list(list):
     # type: (list) -> object
@@ -17,7 +20,10 @@ def random_from_list(list):
 
 def get_tile_list():  # TODO make reference TerrainTile list
     # type: () -> Terrain[]
-    return [i.value for i in TerrainTile.TerrainTypes]
+    array = [i.value for i in TerrainTile.TerrainTypes]
+    array.append(TerrainTile.TerrainTypes.OPEN.value)
+    array.append(TerrainTile.TerrainTypes.OPEN.value)
+    return array
 
 
 def write_array_to_file(array, width, height, professor_state, file_name):
@@ -46,13 +52,49 @@ def random_map(width, height):
 
 
 def get_random_professor_state(map, width, height):
-    x = randint(0,width - 1)
-    y = randint(0,height - 1)
+    x = randint(0, width - 1)
+    y = randint(0, height - 1)
     while not TerrainTile(TerrainTile.TerrainTypes(map[y * height + x])).is_traversable():
         x = randint(0, width - 1)
         y = randint(0, height - 1)
     random_direction = Directions(randint(1, len(Directions)))
-    return State(Point(x,y), random_direction)
+    return State(Point(x, y), random_direction)
+
+
+def get_professor_state(map, width, height):
+    for i in range(width):
+        map[height * (height - 1) + i] = "#"
+        # TerrainTile.TerrainTypes.ROADWAY.value
+    professor_point_index = width * (height - 1) + randint(0, width)
+    move_count = int(height * .75)
+    while move_count > 0:
+        move_count -= 1
+        professor_point_index += get_random_move(professor_point_index, width, height)
+        map[professor_point_index] = "#"
+    professor_point = Point(professor_point_index % width, professor_point_index / width)
+    random_direction = Directions(randint(1, len(Directions)))
+    return State(professor_point, random_direction)
+
+
+def get_random_move(professor_point, width, height):
+    moves = [-width, width, 1, -1]
+    good_point = False
+    # 10PM ENGAGE FULL STUPID MODE
+    while not good_point:
+        move_index = randint(0, len(moves) + 1)
+        if move_index > len(moves):
+            move_index = 0
+        move = professor_point + moves[move_index % len(moves)]
+        if (height - 1) * (width) > move > 0:
+            # print("hi")
+            good_point = True
+    return moves[move_index % len(moves)]
+
+
+def array_to_terrain_map(array, width, height, professor_state):
+    return TerrainMap(None, array, height, width, professor_state)
+
+# def terrain_map_to_score_map():
 
 if __name__ == "__main__":
     # Generates new map file
@@ -70,6 +112,16 @@ if __name__ == "__main__":
             file_name = sys.argv[3]
         else:
             file_name = "test"
-    map = random_map(WIDTH, HEIGHT)
-    professor_state = get_random_professor_state(map, WIDTH, HEIGHT)
-    write_array_to_file(map, WIDTH, HEIGHT, professor_state,file_name)
+    score = -1
+    while score == -1 or score == None:
+        print("Map Generated Without Professor Route")
+        map = random_map(WIDTH, HEIGHT)
+        professor_state = get_random_professor_state(map, WIDTH, HEIGHT)
+        terrain_map = array_to_terrain_map(map,WIDTH,HEIGHT,professor_state)
+        score_map = ScoreMap(terrain_map)
+        score = score_map.get_tile(professor_state.point)
+    print(score_map)
+    print(professor_state)
+    print(score)
+    write_array_to_file(map,WIDTH,HEIGHT,professor_state, file_name)
+    # write_array_to_file(map, WIDTH, HEIGHT, professor_state,file_name)
