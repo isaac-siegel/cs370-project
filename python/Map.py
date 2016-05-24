@@ -1,5 +1,6 @@
 from Point import Point
 from State import State
+from Directions import Directions
 
 
 class Map(object):
@@ -34,10 +35,10 @@ class Map(object):
                     new_points.append(None)
 
             neighbors = {}
-            neighbors["WEST"] = new_points[0]
-            neighbors["NORTH"] = new_points[1]
-            neighbors["EAST"] = new_points[2]
-            neighbors["SOUTH"] = new_points[3]
+            neighbors[Directions.WEST] = new_points[0]
+            neighbors[Directions.NORTH] = new_points[1]
+            neighbors[Directions.EAST] = new_points[2]
+            neighbors[Directions.SOUTH] = new_points[3]
             #WNES
             return neighbors
         else:

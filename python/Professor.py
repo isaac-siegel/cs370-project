@@ -16,10 +16,10 @@ class Professor:
     def convert_neighbors_to_surroundings(self, neighbors, direction):
         surroundings = None
 
-        north = self.terrain_map.get_tile(neighbors['NORTH'])
-        south = self.terrain_map.get_tile(neighbors['SOUTH'])
-        east = self.terrain_map.get_tile(neighbors['EAST'])
-        west = self.terrain_map.get_tile(neighbors['WEST'])
+        north = self.terrain_map.get_tile(neighbors[Directions.NORTH])
+        south = self.terrain_map.get_tile(neighbors[Directions.SOUTH])
+        east = self.terrain_map.get_tile(neighbors[Directions.EAST])
+        west = self.terrain_map.get_tile(neighbors[Directions.WEST])
 
         if direction == Directions.NORTH:
             surroundings = Surroundings(north, west, south, east)
