@@ -102,9 +102,9 @@ class ScoreMap(Map):
                 tile = self.get_tile(point)
                 if tile is not None:
                     if tile.score == -1:
-                        result += '{   BLOCKED   }'
+                        result += '{     BLOCKED     }'
                     else:
-                        result += '(SCORE=' + str(tile.score) + ', '
+                        result += '(SCORE=' + '{:5d}'.format(tile.score) + ', '
                         if Directions.NORTH in tile.directions:
                             result += '^'
                         else:
@@ -123,6 +123,6 @@ class ScoreMap(Map):
                             result += ' '
                         result += ')'
                 else:
-                    result += '{NEEDS SCORING}'
+                    result += '{  NEEDS SCORING  }'
             result += '\n'
         return result
