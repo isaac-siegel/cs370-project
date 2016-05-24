@@ -20,16 +20,17 @@ class Map(object):
             raise TypeError("map is null")
         return self.map[Map.point_to_index(point, self.height, self.width)]
 
-    def get_neighbors(self, point):
+    @staticmethod
+    def get_neighbors_static(point, width, height):
         # type: (Point, int, int) -> object[]
-        if Map.is_valid_point(point, self.width, self.height):
+        if Map.is_valid_point(point, width, height):
             new_points = []
             for index_modifiers in Map.NEIGHBORING_INDEX_MODIFIERS:
                 new_x = point.x + index_modifiers[0]
                 new_y = point.y + index_modifiers[1]
 
                 new_point = Point(new_x, new_y)
-                if Map.is_valid_point(new_point, self.width, self.height):
+                if Map.is_valid_point(new_point, width, height):
                     new_points.append(new_point)
                 else:
                     new_points.append(None)
@@ -39,11 +40,14 @@ class Map(object):
             neighbors[Directions.NORTH] = new_points[1]
             neighbors[Directions.EAST] = new_points[2]
             neighbors[Directions.SOUTH] = new_points[3]
-            #WNES
+            # WNES
             return neighbors
         else:
             print(point)
             raise IndexError
+
+    def get_neighbors(self, point):
+        return Map.get_neighbors_static(point, self.width, self.height)
 
     def __str__(self):
         to_string = ""
