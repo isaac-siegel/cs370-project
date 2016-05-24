@@ -19,6 +19,32 @@ def generate_random_valid_move(terrain_map, prof):
         move = generate_move()
     return move
 
+def count_desired_directions(score_map, possible_states):
+    # UNTESTED
+    count = {}
+    count[Directions.NORTH] = 0
+    count[Directions.EAST] = 0
+    count[Directions.SOUTH] = 0
+    count[Directions.WEST] = 0
+
+    for possible_state in possible_states:
+        desired_directions = score_map.get_tile(possible_state.point).directions
+        for desired_direction in desired_directions:
+            count[desired_direction] += 1
+
+    max_count = max(count[Directions.NORTH], count[Directions.EAST], count[Directions.SOUTH], count[Directions.WEST])
+
+    if max_count == count[Directions.NORTH]:
+        return Directions.NORTH
+    elif max_count == count[Directions.SOUTH]:
+        return Directions.SOUTH
+    elif max_count == count[Directions.EAST]:
+        return Directions.EAST
+    elif max_count == count[Directions.WEST]:
+        return Directions.WEST
+    else:
+        raise AssertionError
+
 t1 = time()
 
 terrain_map = TerrainMap("test.map")
