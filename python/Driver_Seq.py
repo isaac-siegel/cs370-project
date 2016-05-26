@@ -7,6 +7,7 @@ from Directions import Directions
 from Point import Point
 from State import State
 from time import time, sleep
+from FileOut import FileOut
 
 
 def generate_move():
@@ -63,10 +64,11 @@ def primary_driver_logic():
 
     print("Starting Amount of possible_states: ",len(possible_states))
 
-
+    i = 0
     while len(possible_states) > 1:
         current_surroundings = prof.get_surroundings()
         next_possible_states = []
+        FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
         for possible_state in possible_states:
             if prof.is_possible_state(possible_state,current_surroundings):
                 next_possible_states.append(possible_state)
@@ -79,11 +81,13 @@ def primary_driver_logic():
 
         move = generate_random_valid_move(terrain_map, prof)
         print(prof)
+        print(terrain_map.get_tile(prof.state.point).is_traversable())
         print(move)
         prof.move(move)
 
         for possible_state in possible_states:
             possible_state.move(move)
+        i += 1
 
     print("\n\n====RESTING PLACE===")
     print(prof)
