@@ -76,24 +76,26 @@ def primary_driver_logic():
     print("Starting Amount of possible_states: ",len(possible_states))
 
     i = 0
+    print_once = False
 
     print("===Starting Primary Loop===")
-    while len(possible_states) > 1:
+    while prof.state.point.y < terrain_map.height - 1:
         current_surroundings = prof.get_surroundings()
         next_possible_states = []
         for possible_state in possible_states:
             if prof.is_possible_state(possible_state,current_surroundings):
                 next_possible_states.append(possible_state)
         possible_states = next_possible_states
-
-        FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
-
-        i += 1
+        if len(possible_states) > 1:
+            FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
+            i += 1
 
         print("Num possible states: ",len(possible_states))
         # Now possible states have been trimmed down
-        if len(possible_states) <= 1:
-            break
+        if len(possible_states) <= 1 and not print_once:
+            print("++++++++++++++++++++++++++++++++++FOUND PROF++++++++++++++++++++++++++++++++++")
+            print(score_map.get_tile(prof.state.point).score)
+            print_once = True
 
         print(prof)
         print("isTraversible() ",terrain_map.get_tile(prof.state.point).is_traversable())
@@ -113,6 +115,9 @@ def primary_driver_logic():
 
         FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
         i += 1
+        if i > terrain_map.height * 1.25:
+            print("NOT DONE YET BUT SAVING ISAAC'S SSD")
+            break
 
     print("\n\n====RESTING PLACE===")
     print(prof)
