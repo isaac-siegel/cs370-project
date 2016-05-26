@@ -14,10 +14,10 @@ def generate_move():
     return Moves(choice)
 
 def generate_random_valid_move(terrain_map, prof):
-    move = generate_move()
-    while not terrain_map.is_valid_move(prof.state, move):
-        move = generate_move()
-    return move
+    rand_move = generate_move()
+    while not terrain_map.is_valid_move(prof.state, rand_move):
+        rand_move = generate_move()
+    return rand_move
 
 def count_desired_directions(score_map, possible_states):
     # UNTESTED
@@ -45,47 +45,51 @@ def count_desired_directions(score_map, possible_states):
     else:
         raise AssertionError
 
-t1 = time()
 
-terrain_map = TerrainMap("test.map")
-# print(terrain_map)
+def primary_driver_logic():
+    t1 = time()
 
-# # score_map = ScoreMap(terrain_map)
+    terrain_map = TerrainMap("test.map")
+    # print(terrain_map)
 
-prof = Professor(terrain_map)
-print("====STARTING PLACE====")
-print(prof)
+    # # score_map = ScoreMap(terrain_map)
 
-# possible_states = terrain_map.get_all_traversable_states()
-possible_states = prof.get_all_possible_states()
-
-print("Starting Amount of possible_states: ",len(possible_states))
-
-
-while len(possible_states) > 1:
-    current_surroundings = prof.get_surroundings()
-    next_possible_states = []
-    for possible_state in possible_states:
-        if prof.is_possible_state(possible_state,current_surroundings):
-            next_possible_states.append(possible_state)
-    possible_states = next_possible_states
-
-    print("Num possible states: ",len(possible_states))
-    # Now possible states have been trimmed down
-    if len(possible_states) <= 1:
-        break
-
-    move = generate_random_valid_move(terrain_map, prof)
+    prof = Professor(terrain_map)
+    print("====STARTING PLACE====")
     print(prof)
-    print(move)
-    prof.move(move)
 
-    for possible_state in possible_states:
-        possible_state.move(move)
+    # possible_states = terrain_map.get_all_traversable_states()
+    possible_states = prof.get_all_possible_states()
 
-print("\n\n====RESTING PLACE===")
-print(prof)
+    print("Starting Amount of possible_states: ",len(possible_states))
 
-print("FOUND_PROF")
-t2 = time()
-print('time take: {} seconds'.format(t2 - t1))
+
+    while len(possible_states) > 1:
+        current_surroundings = prof.get_surroundings()
+        next_possible_states = []
+        for possible_state in possible_states:
+            if prof.is_possible_state(possible_state,current_surroundings):
+                next_possible_states.append(possible_state)
+        possible_states = next_possible_states
+
+        print("Num possible states: ",len(possible_states))
+        # Now possible states have been trimmed down
+        if len(possible_states) <= 1:
+            break
+
+        move = generate_random_valid_move(terrain_map, prof)
+        print(prof)
+        print(move)
+        prof.move(move)
+
+        for possible_state in possible_states:
+            possible_state.move(move)
+
+    print("\n\n====RESTING PLACE===")
+    print(prof)
+
+    print("FOUND_PROF")
+    t2 = time()
+    print('time take: {} seconds'.format(t2 - t1))
+
+primary_driver_logic()
