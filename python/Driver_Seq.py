@@ -14,10 +14,10 @@ def generate_move():
     return Moves(choice)
 
 def generate_random_valid_move(terrain_map, prof):
-    move = generate_move()
+    rand_move = generate_move()
     while not terrain_map.is_valid_move(prof.state, move):
-        move = generate_move()
-    return move
+        rand_move = generate_move()
+    return rand_move
 
 def count_desired_directions(score_map, possible_states):
     # UNTESTED
