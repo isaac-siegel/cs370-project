@@ -64,7 +64,7 @@ class Map(object):
     def is_valid_state(self, state):
         return self.is_valid_point(state.point, self.width, self.height)
 
-    def is_valid_move(self, state, movement):
+    def is_move_in_map(self, state, movement):
         move_state = State.copy(state)
         move_state.move(movement)
         return self.is_valid_state(move_state)

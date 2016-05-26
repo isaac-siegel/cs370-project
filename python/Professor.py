@@ -59,6 +59,12 @@ class Professor:
                 if terrain.is_traversable():
                     for dir in Directions:
                         state = State(point, dir)
-                        if self.is_possible_state(state,professor_surroundings):
+                        if self.is_possible_state(state, professor_surroundings):
                             states.append(state)
         return states
+
+    def is_valid_move(self, movement):
+        move_state = State.copy(self.state)
+        move_state.move(movement)
+        return self.terrain_map.is_valid_state(move_state) and self.terrain_map.get_tile(
+            self.state.point).is_traversable()

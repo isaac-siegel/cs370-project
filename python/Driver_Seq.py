@@ -16,7 +16,7 @@ def generate_move():
 
 def generate_random_valid_move(terrain_map, prof):
     rand_move = generate_move()
-    while not terrain_map.is_valid_move(prof.state, rand_move):
+    while not prof.is_valid_move(rand_move):
         rand_move = generate_move()
     return rand_move
 
