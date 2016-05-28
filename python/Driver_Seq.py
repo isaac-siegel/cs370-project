@@ -11,6 +11,7 @@ from FileOut import FileOut
 from ScoreMap import ScoreMap
 from random import randint
 
+FILE_OUT = False
 
 def generate_move():
     choice = int(random.uniform(1,5))
@@ -87,7 +88,8 @@ def primary_driver_logic():
                 next_possible_states.append(possible_state)
         possible_states = next_possible_states
         if len(possible_states) > 1:
-            FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
+            if FILE_OUT:
+                FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
             i += 1
 
         print("Num possible states: ",len(possible_states))
@@ -113,7 +115,9 @@ def primary_driver_logic():
         for possible_state in possible_states:
             possible_state.move(move)
 
-        FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
+        if FILE_OUT:
+            FileOut.to_png(terrain_map=terrain_map,possible_states=possible_states,professor=prof,file_name="steps/step" + str(i))
+
         i += 1
         if i > terrain_map.height * 1.25:
             print("NOT DONE YET BUT SAVING ISAAC'S SSD")
