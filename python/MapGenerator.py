@@ -5,6 +5,7 @@ from Directions import Directions
 from State import State
 from TerrainMap import TerrainMap
 from ScoreMap import ScoreMap
+from TerrainTypes import TerrainTypes
 import os
 import sys
 
@@ -20,9 +21,9 @@ def random_from_list(list):
 
 def get_tile_list():  # TODO make reference TerrainTile list
     # type: () -> Terrain[]
-    array = [i.value for i in TerrainTile.TerrainTypes]
-    array.append(TerrainTile.TerrainTypes.OPEN.value)
-    array.append(TerrainTile.TerrainTypes.OPEN.value)
+    array = [i.value for i in TerrainTypes]
+    array.append(TerrainTypes.OPEN.value)
+    array.append(TerrainTypes.OPEN.value)
     return array
 
 
@@ -54,7 +55,7 @@ def random_map(width, height):
 def get_random_professor_state(map, width, height):
     x = randint(0, width - 1)
     y = randint(0, height - 1)
-    while not TerrainTile(TerrainTile.TerrainTypes(map[y * height + x])).is_traversable():
+    while not TerrainTile(TerrainTypes(map[y * height + x])).is_traversable():
         x = randint(0, width - 1)
         y = randint(0, height - 1)
     random_direction = Directions(randint(1, len(Directions)))
@@ -64,7 +65,7 @@ def get_random_professor_state(map, width, height):
 def get_professor_state(map, width, height):
     for i in range(width):
         map[height * (height - 1) + i] = "#"
-        # TerrainTile.TerrainTypes.ROADWAY.value
+        # TerrainTypes.ROADWAY.value
     professor_point_index = width * (height - 1) + randint(0, width)
     move_count = int(height * .75)
     while move_count > 0:

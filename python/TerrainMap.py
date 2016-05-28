@@ -4,6 +4,7 @@ from TerrainTile import TerrainTile
 from Point import Point
 from Directions import Directions
 from State import State
+from TerrainTypes import TerrainTypes
 
 
 class TerrainMap(Map):
@@ -32,11 +33,11 @@ class TerrainMap(Map):
             height = len(array)
             width = len(array[0])
             array = TerrainMap.flatten_array(array)
-            terrain_array = [TerrainTile(TerrainTile.TerrainTypes(int(type))) for type in array]
+            terrain_array = [TerrainTile(TerrainTypes(int(type))) for type in array]
             super(TerrainMap, self).__init__(terrain_array, width, height)
         else:
             self.professor_start_state = professor_state
-            terrain_array = [TerrainTile(TerrainTile.TerrainTypes(int(type))) for type in map_array]
+            terrain_array = [TerrainTile(TerrainTypes(int(type))) for type in map_array]
             super(TerrainMap, self).__init__(terrain_array, width, height)
 
     def get_all_traversable_states(self):

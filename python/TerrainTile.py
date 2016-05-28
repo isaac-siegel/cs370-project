@@ -1,19 +1,15 @@
 from enum import Enum
 from Tile import Tile
+from TerrainTypes import TerrainTypes
 
 class TerrainTile(Tile):
-    class TerrainTypes(Enum):
-        TREE = 1
-        CLIFF = 2
-        OPEN = 3
-        ROADWAY = 4
 
     def __init__(self, terrain_type):
         Tile.__init__(self)
         self.terrain_type = terrain_type
 
     def is_traversable(self):
-        return self.terrain_type == TerrainTile.TerrainTypes.OPEN or self.terrain_type == TerrainTile.TerrainTypes.ROADWAY
+        return self.terrain_type == TerrainTypes.OPEN or self.terrain_type == TerrainTypes.ROADWAY
 
     def __eq__(self, other):
         if other is None:
@@ -25,11 +21,11 @@ class TerrainTile(Tile):
 
 
 
-# tree_tile_1 = TerrainTile(TerrainTile.TerrainTypes.TREE)
-# tree_tile_2 = TerrainTile(TerrainTile.TerrainTypes.TREE)
+# tree_tile_1 = TerrainTile(TerrainTypes.TREE)
+# tree_tile_2 = TerrainTile(TerrainTypes.TREE)
 #
-# cliff_tile = TerrainTile(TerrainTile.TerrainTypes.CLIFF)
-# roadway_tile = TerrainTile(TerrainTile.TerrainTypes.ROADWAY)
+# cliff_tile = TerrainTile(TerrainTypes.CLIFF)
+# roadway_tile = TerrainTile(TerrainTypes.ROADWAY)
 #
 # print(tree_tile_1.__eq__(tree_tile_2))
 # print(tree_tile_1.__eq__(cliff_tile))
