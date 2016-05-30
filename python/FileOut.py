@@ -50,4 +50,4 @@ class FileOut:
         df.to_clipboard(excel=True)
 
 
-FileOut.to_png(score_map=ScoreMap(TerrainMap(file_name="test.map")))
+# FileOut.to_png(score_map=ScoreMap(TerrainMap(file_name="test.map")))
