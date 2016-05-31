@@ -164,5 +164,6 @@ def primary_driver_logic():
         print("FOUND_PROF")
         t2 = time()
         print('time take: {} seconds'.format(t2 - t1))
+        return t2-t1
 
 primary_driver_logic()
