@@ -75,7 +75,7 @@ def primary_driver_logic(map_file_name):
 
     # possible_states = terrain_map.get_all_traversable_states()
     print("Generating Initial possible_states")
-    possible_states = prof.get_all_possible_states(2)
+    possible_states = prof.get_all_possible_states(4)
     print('time take: {} seconds'.format(time() - t1))
     t1 = time()
     print("Starting Amount of possible_states: ",len(possible_states))
