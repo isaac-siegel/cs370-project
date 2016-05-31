@@ -54,11 +54,11 @@ def get_smart_move(score_map, possible_states):
     return max_moves_ties[randint(0,len(max_moves_ties)-1)]
 
 
-def primary_driver_logic():
+def primary_driver_logic(map_file_name):
     t1 = time()
     t0 = time()
     print("Creating Terrain Map")
-    terrain_map = TerrainMap("test.map")
+    terrain_map = TerrainMap(map_file_name)
     # print(terrain_map)
     print('time take: {} seconds'.format(time() - t1))
     t1 = time()
@@ -142,4 +142,4 @@ def primary_driver_logic():
     print('total time take: {} seconds'.format(t2 - t0))
     return t2-t0
 
-primary_driver_logic()
+# primary_driver_logic()
