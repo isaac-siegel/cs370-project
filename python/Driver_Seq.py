@@ -56,24 +56,28 @@ def get_smart_move(score_map, possible_states):
 
 def primary_driver_logic():
     t1 = time()
-
+    t0 = time()
     print("Creating Terrain Map")
     terrain_map = TerrainMap("test.map")
     # print(terrain_map)
-
+    print('time take: {} seconds'.format(time() - t1))
+    t1 = time()
     print("Creating Score Map")
     score_map = ScoreMap(terrain_map)
-
+    print('time take: {} seconds'.format(time() - t1))
+    t1 = time()
     print("Creating Prof")
     prof = Professor(terrain_map)
-
+    print('time take: {} seconds'.format(time() - t1))
+    t1 = time()
     print("====STARTING PLACE====")
     print(prof)
 
     # possible_states = terrain_map.get_all_traversable_states()
     print("Generating Initial possible_states")
     possible_states = prof.get_all_possible_states()
-
+    print('time take: {} seconds'.format(time() - t1))
+    t1 = time()
     print("Starting Amount of possible_states: ",len(possible_states))
 
     i = 0
@@ -83,9 +87,13 @@ def primary_driver_logic():
     while prof.state.point.y < terrain_map.height - 1:
         current_surroundings = prof.get_surroundings()
         next_possible_states = []
+        t1 = time()
+        print("Narrowing States")
         for possible_state in possible_states:
             if prof.is_possible_state(possible_state,current_surroundings):
                 next_possible_states.append(possible_state)
+
+        print('time take: {} seconds'.format(time() - t1))
         possible_states = next_possible_states
         if len(possible_states) > 1:
             if FILE_OUT:
@@ -103,7 +111,10 @@ def primary_driver_logic():
         print("isTraversible() ",terrain_map.get_tile(prof.state.point).is_traversable())
 
         print("Getting Smart Move")
+        t1 = time()
         move = get_smart_move(score_map, possible_states)
+        print('time take: {} seconds'.format(time() - t1))
+        t1 = time()
         print("Got Smart Move")
 
         # move = generate_random_valid_move(terrain_map, prof)
@@ -128,7 +139,7 @@ def primary_driver_logic():
 
     print("FOUND_PROF")
     t2 = time()
-    print('time take: {} seconds'.format(t2 - t1))
     return t2-t1
+    print('total time take: {} seconds'.format(t2 - t0))
 
 primary_driver_logic()
