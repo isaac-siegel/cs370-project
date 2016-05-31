@@ -1,3 +1,5 @@
+from time import time
+
 from Map import Map
 from Point import Point
 from TerrainMap import TerrainMap
@@ -52,11 +54,13 @@ class ScoreMap(Map):
     def __init__(self, terrain_map):
         height = terrain_map.height
         width = terrain_map.width
+        time0 = time()
+        print()
         score_array = self.create_score_array(terrain_map, height, width)
-
+        print("ScoreMap init", time() - time0)
         to_score = set()  # stores the next tiles to update score in a set
         curr_score = INITIAL_SCORE
-
+        time0 = time()
         # Set bottom row of scores to (1, [SOUTH]) or (NON_TRAVERSIBLE_SCORE, [])
         for i in range(width):
             p = Point(i, height - 1)
@@ -71,8 +75,10 @@ class ScoreMap(Map):
                         if self.needs_scoring(score_array, neighbor_ndx):
                             to_score.add(neighbor_point)
 
+        print("ScoreMap add to bottom", time() - time0)
         #TODO check that this works
         # Start scoring all other tiles
+        time0 = time()
         while len(to_score) > 0:
             curr_score += 1
             currently_scoring = to_score
@@ -90,6 +96,7 @@ class ScoreMap(Map):
                             if self.needs_scoring(score_array, neighbor_ndx):
                                 to_score.add(neighbor_point)
 
+        print("ScoreMap score rest", time() - time0)
         #TODO check if there are any islands left of unscored tiles and init to score -1
 
         super(ScoreMap, self).__init__(score_array, width, height)
