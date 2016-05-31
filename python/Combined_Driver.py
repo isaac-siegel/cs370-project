@@ -17,7 +17,7 @@ print("\n\n\n==========RESULTS==========")
 print("Seq Time: "+ str(delta_time_Seq) + " secs")
 print("Shared Memory Time: "+ str(delta_time_SharedMemory) + " secs")
 
-speedup_SharedMemory = (delta_time_Seq - delta_time_SharedMemory) / delta_time_Seq
+speedup_SharedMemory = 100 * (delta_time_Seq - delta_time_SharedMemory) / delta_time_Seq
 
 print("Speedup using MPI: " + str(speedup_SharedMemory) + "%" )
 

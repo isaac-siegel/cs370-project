@@ -3,7 +3,7 @@ import os
 
 def display():
     os.chdir("steps")
-    
+
     files = [f for f in os.listdir('.') if f[-3:] == 'png']
 
     img = None
