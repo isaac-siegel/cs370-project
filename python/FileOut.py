@@ -1,6 +1,7 @@
 import numpy as np
 import seaborn as sns
 from pandas import DataFrame
+import math
 
 from TerrainTypes import TerrainTypes
 from TerrainMap import TerrainMap
@@ -52,12 +53,21 @@ class FileOut:
             if professor:
                 map_array[professor.state.point.y * width + professor.state.point.x] = legit_purple
         else:
+            def scale(x):
+                return math.floor((x * 100 / full_map.width) - 25)
+
             map_array2 = [score_tile.score if score_tile is not None else -1 for score_tile in full_map.map]
-            map_array = [-100 if score_tile == -1 else score_tile for score_tile in map_array2]
+            map_array = [100 if score_tile == -1 else scale(score_tile) for score_tile in map_array2]
 
         two_D = np.reshape(map_array, (width, height))
         df = DataFrame(two_D)
-        sns_plot = sns.heatmap(df, cmap="Paired", vmin=0,vmax=100, cbar=False, annot=False, xticklabels=False, yticklabels=False, square=True)
+
+        sns_plot = None
+        if terrain_map:
+            sns_plot = sns.heatmap(df, cmap="Paired", vmin=0,vmax=100, cbar=False, annot=False, xticklabels=False, yticklabels=False, square=True)
+        else:
+            sns_plot = sns.heatmap(df, cmap="YlOrRd", vmin=0,vmax=100, cbar=False, annot=False, xticklabels=False, yticklabels=False, square=True)
+
         fig = sns_plot.get_figure()
         fig.savefig(file_name + ".png")
 
@@ -72,4 +82,4 @@ class FileOut:
         df.to_clipboard(excel=True)
 
 
-# FileOut.to_png(score_map=ScoreMap(TerrainMap(file_name="test.map")))
+FileOut.to_png(score_map=ScoreMap(TerrainMap(file_name="test.map")))
